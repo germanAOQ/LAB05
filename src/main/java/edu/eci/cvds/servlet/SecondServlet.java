@@ -64,5 +64,47 @@ public class SecondServlet extends HttpServlet{
 		}
 	}
 	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+		try {
+			//
+			Writer responseWriter = response.getWriter();
+			//
+			String value = request.getParameter("name");
+			
+			int i = Integer.parseInt(value);
+			Todo todo = Service.getTodo(i);
+			//
+			boolean temp = todo.getCompleted();
+			//
+			List<Todo> lista = new ArrayList<Todo>();
+			lista.add(todo);
+			//
+			if(temp) {
+				responseWriter.write(Service.todosToHTMLTable(lista));
+				responseWriter.flush();
+			}else if(!temp){
+				response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+			}
+			//
+		}catch(NumberFormatException eN) {
+			HttpServletResponse resp=(HttpServletResponse) response;
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			resp.setContentType("what you need");
+			PrintWriter writer=resp.getWriter();
+		}catch(MalformedURLException eM) {
+			HttpServletResponse resp=(HttpServletResponse) response;
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			resp.setContentType("what you need");
+			PrintWriter writer=resp.getWriter();
+		}catch(Exception e) {
+			HttpServletResponse resp=(HttpServletResponse) response;
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			resp.setContentType("what you need");
+			PrintWriter writer=resp.getWriter();
+		}
+
+	}
 	
 }

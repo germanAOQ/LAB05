@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.eci.cvds.servlet.model.Todo;
 
 @WebServlet(
-		urlPatterns = "/urlServlet"
+		urlPatterns = "/secondServlet"
 		)
 
 public class SecondServlet extends HttpServlet{
@@ -30,7 +30,7 @@ public class SecondServlet extends HttpServlet{
 			Writer responseWriter = resp.getWriter();
 			//
 			String value = req.getParameter("name");
-			
+
 			int i = Integer.parseInt(value);
 			Todo todo = Service.getTodo(i);
 			//
@@ -50,29 +50,26 @@ public class SecondServlet extends HttpServlet{
 			HttpServletResponse response=(HttpServletResponse) resp;
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.setContentType("what you need");
-			PrintWriter writer=response.getWriter();
 		}catch(MalformedURLException eM) {
 			HttpServletResponse response=(HttpServletResponse) resp;
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			response.setContentType("what you need");
-			PrintWriter writer=response.getWriter();
 		}catch(Exception e) {
 			HttpServletResponse response=(HttpServletResponse) resp;
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.setContentType("what you need");
-			PrintWriter writer=response.getWriter();
 		}
 	}
-	
+
+	/**
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
 		try {
 			//
-			Writer responseWriter = response.getWriter();
+			Writer responseWriter = resp.getWriter();
 			//
-			String value = request.getParameter("name");
-			
+			String value = req.getParameter("name");
+
 			int i = Integer.parseInt(value);
 			Todo todo = Service.getTodo(i);
 			//
@@ -85,26 +82,25 @@ public class SecondServlet extends HttpServlet{
 				responseWriter.write(Service.todosToHTMLTable(lista));
 				responseWriter.flush();
 			}else if(!temp){
-				response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+				resp.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 			}
 			//
 		}catch(NumberFormatException eN) {
-			HttpServletResponse resp=(HttpServletResponse) response;
-			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			resp.setContentType("what you need");
-			PrintWriter writer=resp.getWriter();
+			HttpServletResponse response=(HttpServletResponse) resp;
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.setContentType("what you need");
 		}catch(MalformedURLException eM) {
-			HttpServletResponse resp=(HttpServletResponse) response;
-			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			resp.setContentType("what you need");
-			PrintWriter writer=resp.getWriter();
+			HttpServletResponse response=(HttpServletResponse) resp;
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.setContentType("what you need");
 		}catch(Exception e) {
-			HttpServletResponse resp=(HttpServletResponse) response;
-			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			resp.setContentType("what you need");
-			PrintWriter writer=resp.getWriter();
+			HttpServletResponse response=(HttpServletResponse) resp;
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.setContentType("what you need");
 		}
-
 	}
-	
+	*/
+
 }
+
+

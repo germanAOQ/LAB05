@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-	<form name="loginForm" method="get" action="http://localhost:8080/secondServlet">
+	<form name="loginForm" method="post" onsubmit="return validateForm()" action="http://localhost:8080/secondServlet">
 	    Username: <input type="text" name="name"/> <br/>
     	    <input type="submit" value="Login" />
 	</form>

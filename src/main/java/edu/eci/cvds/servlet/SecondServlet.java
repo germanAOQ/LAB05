@@ -3,6 +3,7 @@ package edu.eci.cvds.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,81 +27,72 @@ public class SecondServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			//
 			Writer responseWriter = resp.getWriter();
-			//
 			String value = req.getParameter("name");
-
 			int i = Integer.parseInt(value);
 			Todo todo = Service.getTodo(i);
-			//
-			boolean temp = todo.getCompleted();
-			//
+			int valor = todo.getUserId();
+			boolean temp = ((valor>=1) && (valor<=10));
 			List<Todo> lista = new ArrayList<Todo>();
 			lista.add(todo);
-			//
-			if(temp) {
+			System.out.println(Service.todosToHTMLTable(lista));
+			if(temp){
 				responseWriter.write(Service.todosToHTMLTable(lista));
 				responseWriter.flush();
-			}else if(!temp){
-				resp.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 			}
-			//
 		}catch(NumberFormatException eN) {
 			HttpServletResponse response=(HttpServletResponse) resp;
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 			response.setContentType("what you need");
 		}catch(MalformedURLException eM) {
 			HttpServletResponse response=(HttpServletResponse) resp;
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			response.setContentType("what you need");
-		}catch(Exception e) {
+		}catch(FileNotFoundException eF) {
+			HttpServletResponse response=(HttpServletResponse) resp;
+			response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+			response.setContentType("what you need");
+		}catch(Exception eG){
 			HttpServletResponse response=(HttpServletResponse) resp;
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.setContentType("what you need");
 		}
 	}
 
-	/**
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
 		try {
-			//
 			Writer responseWriter = resp.getWriter();
-			//
 			String value = req.getParameter("name");
-
 			int i = Integer.parseInt(value);
 			Todo todo = Service.getTodo(i);
-			//
-			boolean temp = todo.getCompleted();
-			//
+			int valor = todo.getUserId();
+			boolean temp = ((valor>=1) && (valor<=10));
 			List<Todo> lista = new ArrayList<Todo>();
 			lista.add(todo);
-			//
-			if(temp) {
+			System.out.println(Service.todosToHTMLTable(lista));
+			if(temp){
 				responseWriter.write(Service.todosToHTMLTable(lista));
 				responseWriter.flush();
-			}else if(!temp){
-				resp.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 			}
-			//
 		}catch(NumberFormatException eN) {
 			HttpServletResponse response=(HttpServletResponse) resp;
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 			response.setContentType("what you need");
 		}catch(MalformedURLException eM) {
 			HttpServletResponse response=(HttpServletResponse) resp;
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			response.setContentType("what you need");
-		}catch(Exception e) {
+		}catch(FileNotFoundException eF) {
+			HttpServletResponse response=(HttpServletResponse) resp;
+			response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+			response.setContentType("what you need");
+		}catch(Exception eG){
 			HttpServletResponse response=(HttpServletResponse) resp;
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.setContentType("what you need");
 		}
 	}
-	*/
-
 }
 
 
